@@ -18,63 +18,64 @@ import SettingsBrightnessIcon from '@mui/icons-material/SettingsBrightness';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const Container = styled.div`
-position: sticky;
-top: 0;
-flex-basis: 179px;
-overflow-y: auto;
-background-color: ${({theme}) => theme.bg};
-height: 100vh;
-color: ${({theme}) => theme.text};
-font-size: 14px;
+    position: sticky;
+    top: 0;
+    flex-basis: 179px;
+    overflow-y: auto;
+    background-color: ${({theme}) => theme.bgLighter};
+    height: 100vh;
+    color: ${({theme}) => theme.text};
+    font-size: 14px;
 `
 
 const Wrapper = styled.div`
-padding: 18px 26px;
+    padding: 18px 26px;
 `
 
 const Logo = styled.div`
-display: flex;
-align-items: center;
-gap: 5px;
-font-feight: bold;
-margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-feight: bold;
+    margin-bottom: 25px;
 `
 
 const Img = styled.img`
-height: 25px;
+    height: 25px;
 `
 
 const Item = styled.div`
-display: flex;
-align-items: center;
-gap: 20px;
-cursor: pointer;
-padding: 7.5px 0px;`
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    cursor: pointer;
+    padding: 7.5px 0px;
+`
 
 const Hr = styled.div`
-margin: 15px 0px;
-border: 0.5px solid ${({theme}) => theme.soft};
+    margin: 15px 0px;
+    border: 0.5px solid ${({theme}) => theme.soft};
 `
 
 const Login = styled.div``
 const Button = styled.button`
-display: flex;
-align-items: center;
-gap: 5px;
-padding: 5px 15px;
-background-color: transparent;
-border: 1px solid #3ea6ff;
-color: #3ea6ff;
-border-radius: 3px;
-font-weight: 500;
-margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 15px;
+    background-color: transparent;
+    border: 1px solid #3ea6ff;
+    color: #3ea6ff;
+    border-radius: 3px;
+    font-weight: 500;
+    margin-top: 10px;
 `
 
 const Title = styled.h2`
-font-size: 14px;
-font-weight: 500;
-color: #aaaaaa;
-margin-bottom: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #aaaaaa;
+    margin-bottom: 20px;
 `
 
 const Menu = ({setDarkMode}) => {
