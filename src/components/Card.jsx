@@ -1,5 +1,6 @@
 import styled from "styled-components"
 import Avatar from '../img/avatar.jpg'
+import { Link } from "react-router-dom"
 
 const Container = styled.div`
   width: 360px;
@@ -50,17 +51,19 @@ const Info = styled.div`
 
 const Card = () => {
   return (
-    <Container>
-      <Image src='https://i.ytimg.com/vi/NocOBI0OCQs/hqdefault.jpg?sqp=-oaymwEXCOADEI4CSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLDCareXExdLcorbwtwBKLqTtqZGsQ'/>
-      <Details>
-        <ChannelImage src={Avatar} />
-        <Texts>
-          <Title>Test Video</Title>
-          <ChannelName>Light Enlightening</ChannelName>
-          <Info>999,888 views * 1 day ago</Info>
-        </Texts>
-      </Details>
-    </Container>
+    <Link to='/video/test' >
+      <Container>
+        <Image src='https://i.ytimg.com/vi/NocOBI0OCQs/hqdefault.jpg?sqp=-oaymwEXCOADEI4CSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLDCareXExdLcorbwtwBKLqTtqZGsQ'/>
+        <Details>
+          <ChannelImage src={Avatar} />
+          <Texts>
+            <Title>Test Video</Title>
+            <ChannelName>Light Enlightening</ChannelName>
+            <Info>999,888 views * 1 day ago</Info>
+          </Texts>
+        </Details>
+      </Container>
+    </Link>
   )
 }
 

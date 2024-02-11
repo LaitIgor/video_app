@@ -16,6 +16,7 @@ import FlagIcon from '@mui/icons-material/Flag';
 import HelpIcon from '@mui/icons-material/Help';
 import SettingsBrightnessIcon from '@mui/icons-material/SettingsBrightness';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
     position: sticky;
@@ -79,13 +80,15 @@ const Title = styled.h2`
     margin-bottom: 20px;
 `
 
-const Menu = ({setDarkMode}) => {
+const Menu = ({darkMode, setDarkMode}) => {
   return (
     <Container>
         <Wrapper>
-            <Logo>
-                <Img src={VideoTube}/>VideoTube
-            </Logo>
+            <Link to='/' style={{color: 'inherit'}} >
+                <Logo>
+                    <Img src={VideoTube}/>VideoTube
+                </Logo>
+            </Link>
             <Item>
                 <HomeIcon/>
                 Home
@@ -154,7 +157,7 @@ const Menu = ({setDarkMode}) => {
             </Item>
             <Item onClick={() => setDarkMode((prevThemeState) => !prevThemeState)}>
                 <SettingsBrightnessIcon/>
-                Light Mode
+                {darkMode ? 'Light' : 'Dark'} Mode
             </Item>
 
         </Wrapper>

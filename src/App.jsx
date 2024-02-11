@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import Menu from './components/Menu';
@@ -6,6 +6,7 @@ import Navbar from './components/Navbar';
 import { darkTheme, lightTheme } from './utils/Theme';
 import Home from './components/pages/Home';
 import Video from './components/pages/Video';
+import Video1 from './components/pages/Video1';
 
 const Container = styled.div`
 display: flex
@@ -26,7 +27,7 @@ function App() {
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <Container>
         <BrowserRouter>
-          <Menu setDarkMode={setDarkMode}/>
+          <Menu darkMode={darkMode} setDarkMode={setDarkMode}/>
           <Main>
             <Navbar/>
             <Wrapper>
@@ -34,6 +35,7 @@ function App() {
                 <Route path="/">
                   <Route index element={<Home/>}/>
                   <Route path="video">
+                    <Route index element={<Video1 />}/>
                     <Route path=":id" element={<Video />}/>
                   </Route>
                 </Route>
