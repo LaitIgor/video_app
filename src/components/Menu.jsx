@@ -23,6 +23,7 @@ const Container = styled.div`
     top: 0;
     left: 0;
     flex-basis: 179px;
+    flex-shrink: 0;
     overflow-y: auto;
     background-color: ${({theme}) => theme.bgLighter};
     height: 100vh;
@@ -52,6 +53,10 @@ const Item = styled.div`
     gap: 20px;
     cursor: pointer;
     padding: 7.5px 0px;
+
+    &:hover {
+        background-color: ${({theme}) => theme.soft}
+    }
 `
 
 const Hr = styled.div`

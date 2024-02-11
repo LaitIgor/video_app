@@ -152,7 +152,19 @@ const Video1 = () => {
         <Hr/>
         <Comments />
      </Content>
-     <Content>recommendation</Content>
+     <Content>
+        <Card type='sm'/>
+        <Card type='sm'/>
+        <Card type='sm'/>
+        <Card type='sm'/>
+        <Card type='sm'/>
+        <Card type='sm'/>
+        <Card type='sm'/>
+        <Card type='sm'/>
+        <Card type='sm'/>
+        <Card type='sm'/>
+        <Card type='sm'/>
+     </Content>
     </Container>
   )
 }
