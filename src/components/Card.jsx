@@ -57,7 +57,7 @@ const Info = styled.div`
 
 const Card = ({ type }) => {
   return (
-    <Link to='/video/test' >
+    <Link to='/video' >
       <Container type={type}>
         <Image type={type} src='https://i.ytimg.com/vi/NocOBI0OCQs/hqdefault.jpg?sqp=-oaymwEXCOADEI4CSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLDCareXExdLcorbwtwBKLqTtqZGsQ'/>
         <Details type={type}>

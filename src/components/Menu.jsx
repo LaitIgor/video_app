@@ -119,7 +119,9 @@ const Menu = ({darkMode, setDarkMode}) => {
             <Login>
                 
                 Sign in to like videos, comment and subscribe.
-                <Button><AccountCircleIcon/>SIGN IN</Button>
+                <Link to='signing'>
+                    <Button><AccountCircleIcon/>SIGN IN</Button>
+                </Link>
             </Login>
             <Hr/>
             <Title>BEST OF VideoTube</Title>
