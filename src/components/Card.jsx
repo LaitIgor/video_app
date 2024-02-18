@@ -1,6 +1,9 @@
-import styled from "styled-components"
-import Avatar from '../img/avatar.jpg'
-import { Link } from "react-router-dom"
+import { useEffect, useState } from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { format } from 'timeago.js';
+import axios from "axios";
+import Avatar from '../img/avatar.jpg';
 
 const Container = styled.div`
   width: ${(props) => props.type !== 'sm' && '360px'};
@@ -55,17 +58,28 @@ const Info = styled.div`
   color: ${({theme}) => theme.textSoft}
 `
 
-const Card = ({ type }) => {
+const Card = ({ type, video }) => {
+  const [channel, setChannel] = useState({})
+
+  useEffect(() => {
+    const fetchVideos = async () => {
+      const res = await axios.get(`/api/users/find/${video.userId}`);
+      console.log(res.data, 'resres');
+      setChannel(res.data);
+    }
+    fetchVideos();
+  }, [video.userId])
+
   return (
     <Link to='/video' >
       <Container type={type}>
-        <Image type={type} src='https://i.ytimg.com/vi/NocOBI0OCQs/hqdefault.jpg?sqp=-oaymwEXCOADEI4CSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLDCareXExdLcorbwtwBKLqTtqZGsQ'/>
+        <Image type={type} src={video.imageUrl}/>
         <Details type={type}>
-          <ChannelImage type={type} src={Avatar} />
+          <ChannelImage type={type} src={channel.img} />
           <Texts>
-            <Title>Test Video</Title>
-            <ChannelName>Light Enlightening</ChannelName>
-            <Info>999,888 views * 1 day ago</Info>
+            <Title>{video.title}</Title>
+            <ChannelName>{channel.name}</ChannelName>
+            <Info>{video.views} views * {format(video.createdAt)}</Info>
           </Texts>
         </Details>
       </Container>

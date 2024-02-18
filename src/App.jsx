@@ -6,7 +6,7 @@ import Navbar from './components/Navbar';
 import { darkTheme, lightTheme } from './utils/Theme';
 import Home from './components/pages/Home';
 import Video from './components/pages/Video';
-import Video1 from './components/pages/Video1';
+import Video1 from './components/pages/Video';
 import SignIn from './components/pages/SignIn';
 
 const Container = styled.div`
@@ -34,10 +34,11 @@ function App() {
             <Wrapper>
               <Routes>
                 <Route path="/">
-                  <Route index element={<Video/>}/>
+                  <Route index element={<Home type='random'/>}/>
+                  <Route path="trend" element={<Home type='trend'/>}/>
+                  <Route path="subscriptions" element={<Home type='sub'/>}/>
                   <Route path='signing' element={<SignIn/>}/>
                   <Route path="video">
-                    <Route index element={<Video1 />}/>
                     <Route path=":id" element={<Video />}/>
                   </Route>
                 </Route>
