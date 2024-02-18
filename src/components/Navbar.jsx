@@ -4,6 +4,8 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SearchIcon from '@mui/icons-material/Search';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import VideocamIcon from '@mui/icons-material/Videocam';
 
 
 const Container = styled.div`
@@ -58,7 +60,24 @@ const Button = styled.button`
     font-weight: 500;
 `
 
+const User = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+    color: ${({theme}) => theme.text};
+`
+
+const Avatar = styled.image`
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #999;
+`
+
 const Navbar = () => {
+    const { currentUser } = useSelector(state => state.user)
+
   return (
     <Container>
         <Wrapper>
@@ -66,9 +85,15 @@ const Navbar = () => {
                 <Input placeholder='Search' />
                 <SearchIcon/>
             </Search>
-            <Link to='signing'>
+            { currentUser ? (
+                <User>
+                    <VideocamIcon/>
+                    <Avatar/>
+                    {currentUser.name}
+                </User>
+            ) : <Link to='signing'>
                 <Button><AccountCircleIcon/>SIGN IN</Button>
-            </Link>
+            </Link>}
         </Wrapper>
     </Container>
   )
