@@ -24,6 +24,8 @@ const Wrapper = styled.div`
 function App() {
   const [darkMode, setDarkMode] = useState(true)
 
+  console.log(import.meta.env.VITE_FIREBASE_API_KEY, 'ENV KEY');
+
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <Container>

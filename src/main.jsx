@@ -9,6 +9,7 @@ import { PersistGate } from 'redux-persist/lib/integration/react.js'
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={store}>
+    {/* PERSIST API used for automatic browser storage of store and cookies */}
       <PersistGate loading={null} persistor={persistor}>
         <App />
       </PersistGate>

@@ -11,18 +11,28 @@ const Container = styled.div`
 
 const Home = ({ type }) => {
   const [videos, setVideos] = useState([])
+  const [error, setError] = useState(false)
+  console.log(1111);
 
   useEffect(() => {
     const fetchVideos = async () => {
-      const res = await axios.get(`/api/videos/${type}`);
-      console.log(res.data, 'resres');
-      setVideos(res.data);
+      console.log(type, 'typetype');
+      try {
+        const res = await axios.get(`/api/videos/${type}`);
+        console.log(222222222);
+        console.log(res.data, 'resres');
+        setVideos(res.data);
+      }catch(err) {
+        setError(true)
+      }
+     
     }
     fetchVideos();
   }, [type])
 
   return (
     <Container>
+      {error && <div>There was an error while fetching videos...</div>}
       {videos.map(video => <Card key={video._id} video={video}/>)}
      
     </Container>

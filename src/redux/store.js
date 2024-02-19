@@ -14,6 +14,7 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
+// PERSIST API used for automatic browser storage of store and cookies
 const persistConfig = {
   key: 'root',
   version: 1,
