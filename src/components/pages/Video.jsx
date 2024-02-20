@@ -6,6 +6,10 @@ import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import ReplyIcon from '@mui/icons-material/Reply';
 import AddTaskIcon from '@mui/icons-material/AddTask';
 import Avatar from '../../img/avatar.jpg'
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import { useState } from "react";
+import { format } from "timeago.js";
 
 const Container = styled.div`
   display: flex;
@@ -115,6 +119,31 @@ const Subscribe = styled.button`
 `
 
 const Video1 = () => {
+  const { currentUser } = useSelector(state => state.user);
+  const { currentVideo } = useSelector(state => state.video);
+
+  const dispatch = useDispatch().pathname.split('/')[2];
+
+  const path = useLocation();
+
+  const [channel, setChannel] = useState({});
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const videoRes = await axios.get(`/api/video/find/${path}`);
+        const channelRes = await axios.get(`/api/users/find/${videoRes.data.userId}`);
+
+        setChannel(channelRes.data);
+        dispatch(fetchSuccess(videoRes.data))
+      } catch(err) {
+        console.warn(err, 'err');
+      }
+    }
+    fetchData();
+  }, [path, dispatch])
+
+
   return (
     <Container>
      <Content>
@@ -127,11 +156,11 @@ const Video1 = () => {
           allowfullscreen>
           </iframe>
         </VideoWrapper>
-        <Title>Test Video</Title>
+        <Title>{currentVideo.title}</Title>
         <Details>
-          <Info>1,125,355 views * Feb 02, 2024</Info>
+          <Info>{currentVideo.views} views * {format(currentVideo.createdAt)}</Info>
           <Buttons>
-            <Button><ThumbUpIcon/>113</Button>
+            <Button><ThumbUpIcon/>{currentVideo.likes?.length}</Button>
             <Button><ThumbDownIcon/>Dislike</Button>
             <Button><ReplyIcon/>Share</Button>
             <Button><AddTaskIcon/>Save</Button>
@@ -140,11 +169,11 @@ const Video1 = () => {
         <Hr />
         <Channel>
           <ChannelInfo>
-            <Image src={Avatar}/>
+            <Image src={channel.img}/>
             <ChannelDetail>
-              <ChannelName>Light Enlightening</ChannelName>
-              <ChannelCounter>150K subscribers</ChannelCounter>
-              <Description>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae doloribus eum aspernatur nulla nostrum ea natus obcaecati. Porro, commodi libero?</Description>
+              <ChannelName>{channel.channelname}</ChannelName>
+              <ChannelCounter>{channel.subscribers} subscribers</ChannelCounter>
+              <Description>{currentVideo.description}</Description>
             </ChannelDetail>
           </ChannelInfo>
           <Subscribe>SUBSCRIBE</Subscribe>
@@ -152,7 +181,7 @@ const Video1 = () => {
         <Hr/>
         <Comments />
      </Content>
-     <Content>
+      {/* <Recommendation>
         <Card type='sm'/>
         <Card type='sm'/>
         <Card type='sm'/>
@@ -164,7 +193,7 @@ const Video1 = () => {
         <Card type='sm'/>
         <Card type='sm'/>
         <Card type='sm'/>
-     </Content>
+     </Recommendation> */}
     </Container>
   )
 }

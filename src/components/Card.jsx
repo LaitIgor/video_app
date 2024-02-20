@@ -71,7 +71,7 @@ const Card = ({ type, video }) => {
   }, [video.userId])
 
   return (
-    <Link to='/video' >
+    <Link to={`/video/${video.id}`} >
       <Container type={type}>
         <Image type={type} src={video.imageUrl}/>
         <Details type={type}>
