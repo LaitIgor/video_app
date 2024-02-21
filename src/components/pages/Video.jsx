@@ -2,7 +2,9 @@ import styled from "styled-components"
 import Card from "../Card"
 import Comments from '../Comments';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
+import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import ReplyIcon from '@mui/icons-material/Reply';
 import AddTaskIcon from '@mui/icons-material/AddTask';
 import Avatar from '../../img/avatar.jpg'
@@ -10,6 +12,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import { format } from "timeago.js";
+import { dislike, like } from "../../redux/videoSlice";
+import { Subscriptions } from "@mui/icons-material";
 
 const Container = styled.div`
   display: flex;
@@ -115,7 +119,12 @@ const Subscribe = styled.button`
   background-color: #cc1a00;
   border: none;
   border-radius: 3px;
+`
 
+const VideoFrame = styled.video`
+  max-height: 720px;
+  with: 100%;
+  object-fit: cover;
 `
 
 const Video1 = () => {
@@ -143,25 +152,36 @@ const Video1 = () => {
     fetchData();
   }, [path, dispatch])
 
+  const handleLike = async () => {
+    await axios.put(`/api/users/like/${currentVideo._id}`)
+    dispatch(like(currentUser._id))
+  }
+
+  const handleDislike = async () => {
+    await axios.put(`/api/users/dislike/${currentVideo._id}`)
+    dispatch(dislike(currentUser._id))
+  }
+
+  const handleSubscribe = async () => {
+    currentUser.subscribedUsers.includes(channel._id) 
+      ? await axios.put(`/api/users/unsub/${channel._id}`) 
+      : await axios.put(`/api/users/sub/${channel._id}`)
+    dispatch(Subscriptions(channel._id))
+  }
+
 
   return (
     <Container>
      <Content>
         <VideoWrapper>
-          <iframe 
-          width="853" 
-          height="480" 
-          src="https://www.youtube.com/embed/yIaXoop8gl4" 
-          title="React Video Sharing App UI Design | Youtube UI Clone with React" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-          allowfullscreen>
-          </iframe>
+          <VideoFrame src={currentVideo.videoUrl}/>
         </VideoWrapper>
         <Title>{currentVideo.title}</Title>
         <Details>
           <Info>{currentVideo.views} views * {format(currentVideo.createdAt)}</Info>
           <Buttons>
-            <Button><ThumbUpIcon/>{currentVideo.likes?.length}</Button>
-            <Button><ThumbDownIcon/>Dislike</Button>
+            <Button onClick={handleLike}>{currentVideo.likes?.includes(currentUser._id) ? <ThumbUpOffAltIcon/> : <ThumbUpIcon />} {currentVideo.likes?.length}</Button>
+            <Button onClick={handleDislike}>{currentVideo.dislikes?.includes(currentUser._id) ? <ThumbDownAltIcon/> : <ThumbDownIcon />} {currentVideo.dislikes?.length}Dislike</Button>
             <Button><ReplyIcon/>Share</Button>
             <Button><AddTaskIcon/>Save</Button>
           </Buttons>
@@ -176,7 +196,7 @@ const Video1 = () => {
               <Description>{currentVideo.description}</Description>
             </ChannelDetail>
           </ChannelInfo>
-          <Subscribe>SUBSCRIBE</Subscribe>
+          <Subscribe onClick={handleSubscribe}>{currentUser.subscribedUsers?.includes(channel._id) ? 'SUBSCIBED' : 'SUBSCIBE'}</Subscribe>
         </Channel>
         <Hr/>
         <Comments />
