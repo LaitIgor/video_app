@@ -1,6 +1,8 @@
 import styled from "styled-components"
 import Comment from './Comment';
 import AvatarImg from '../img/avatar.jpg'
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Container = styled.div`
 
@@ -32,19 +34,31 @@ const Input = styled.input`
     background-color: transparent;
 `
 
-const Comments = () => {
+const Comments = ({ videoId }) => {
+    const { currentUser } = useSelector(state => state.user)
+    const [comments, setComments] = useState([]);
+
+    useEffect(() => {
+        const fetchComments = async () => {
+            try {
+                const res = await axios.get(`/api/comments/${videoId}`);
+                setComments(res.data);
+            } catch(err) {
+                console.warn(err, 'error');
+            }
+        }
+    }, [videoId])
+
+
   return (
     <Container>
         <NewComment>
-            <Avatar src={AvatarImg} />
+            <Avatar src={currentUser.img} />
             <Input placeholder='Add a comment...' />
         </NewComment>
-        <Comment />
-        <Comment />
-        <Comment />
-        <Comment />
-        <Comment />
-        <Comment />
+        {comments.map(comment => {
+            return  <Comment key={comment._id} comment={comment} />
+        })}
     </Container>
   )
 }

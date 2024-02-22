@@ -1,5 +1,7 @@
 import styled from "styled-components"
 import AvatarImg from '../img/avatar.jpg';
+import { useState } from "react";
+import axios from "axios";
 
 const Container = styled.div`
     display: flex;
@@ -39,16 +41,26 @@ const Text = styled.span`
     font-size: 13px;
 `
 
-const Comment = () => {
-  return (
-    <Container>
-        <Avatar src={AvatarImg}/>
-        <Details>
-            <Name>John Doe <Date>1 day ago</Date></Name>
-            <Text>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eius quod voluptatem omnis illo iure enim dolor, sint assumenda blanditiis optio.</Text>
-        </Details>
-    </Container>
-  )
+const Comment = ({ comment }) => {
+    const [channel, setChannel] = useState();
+
+    useEffect(() => {
+        const fetchComment = async () => {
+            const res = await axios.get(`/api/users/find/${comment.userId}`);
+            setChannel(res.data);
+        }
+        fetchComment();
+    }, [])
+
+    return (
+        <Container>
+            <Avatar src={channel.img}/>
+            <Details>
+                <Name>{channel.name}<Date>1 day ago</Date></Name>
+                <Text>{comment.desc}</Text>
+            </Details>
+        </Container>
+    )
 }
 
 export default Comment
