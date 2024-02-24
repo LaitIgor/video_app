@@ -6,7 +6,6 @@ import Navbar from './components/Navbar';
 import { darkTheme, lightTheme } from './utils/Theme';
 import Home from './components/pages/Home';
 import Video from './components/pages/Video';
-import Video1 from './components/pages/Video';
 import SignIn from './components/pages/SignIn';
 
 const Container = styled.div`
@@ -23,8 +22,6 @@ const Wrapper = styled.div`
 
 function App() {
   const [darkMode, setDarkMode] = useState(true)
-
-  console.log(import.meta.env.VITE_FIREBASE_API_KEY, 'ENV KEY');
 
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>

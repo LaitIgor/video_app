@@ -10,10 +10,12 @@ import AddTaskIcon from '@mui/icons-material/AddTask';
 import Avatar from '../../img/avatar.jpg'
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { format } from "timeago.js";
-import { dislike, like } from "../../redux/videoSlice";
+import { dislike, fetchSuccess, like } from "../../redux/videoSlice";
 import { Subscriptions } from "@mui/icons-material";
+import axios from "axios";
+import Recommendation from "../Recommendation";
 
 const Container = styled.div`
   display: flex;
@@ -63,10 +65,6 @@ const Button = styled.div`
 const Hr = styled.hr`
   margin: 15px 0;
   border: 0.5px solid ${({theme}) => theme.soft}
-`
-
-const Recommendation = styled.div`
-  flex: 2;
 `
 
 const Channel = styled.div`
@@ -127,23 +125,24 @@ const VideoFrame = styled.video`
   object-fit: cover;
 `
 
-const Video1 = () => {
+const Video = () => {
   const { currentUser } = useSelector(state => state.user);
   const { currentVideo } = useSelector(state => state.video);
 
-  const dispatch = useDispatch().pathname.split('/')[2];
+  const dispatch = useDispatch();
 
-  const path = useLocation();
+  const path = useLocation().pathname.split('/')[2];
 
   const [channel, setChannel] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const videoRes = await axios.get(`/api/video/find/${path}`);
+        const videoRes = await axios.get(`/api/videos/find/${path}`);
         const channelRes = await axios.get(`/api/users/find/${videoRes.data.userId}`);
 
         setChannel(channelRes.data);
+        console.log(videoRes.data, 'videoRes.datavideoRes.data');
         dispatch(fetchSuccess(videoRes.data))
       } catch(err) {
         console.warn(err, 'err');
@@ -169,12 +168,16 @@ const Video1 = () => {
     dispatch(Subscriptions(channel._id))
   }
 
+  if (!currentVideo) {
+    return <div>No trend videos for now...</div>
+  }
+
 
   return (
     <Container>
      <Content>
         <VideoWrapper>
-          <VideoFrame src={currentVideo.videoUrl}/>
+          <VideoFrame src={currentVideo.videoUrl} controls/>
         </VideoWrapper>
         <Title>{currentVideo.title}</Title>
         <Details>
@@ -201,21 +204,9 @@ const Video1 = () => {
         <Hr/>
         <Comments videoId={currentVideo._id} />
      </Content>
-      {/* <Recommendation>
-        <Card type='sm'/>
-        <Card type='sm'/>
-        <Card type='sm'/>
-        <Card type='sm'/>
-        <Card type='sm'/>
-        <Card type='sm'/>
-        <Card type='sm'/>
-        <Card type='sm'/>
-        <Card type='sm'/>
-        <Card type='sm'/>
-        <Card type='sm'/>
-     </Recommendation> */}
+      <Recommendation tags={currentVideo.tags} />
     </Container>
   )
 }
 
-export default Video1
+export default Video

@@ -3,6 +3,7 @@ import Comment from './Comment';
 import AvatarImg from '../img/avatar.jpg'
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const Container = styled.div`
 
@@ -47,6 +48,7 @@ const Comments = ({ videoId }) => {
                 console.warn(err, 'error');
             }
         }
+        fetchComments();
     }, [videoId])
 
 

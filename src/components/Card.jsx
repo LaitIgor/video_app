@@ -17,6 +17,7 @@ const Image = styled.img`
   width: 100%;
   height: ${(props) => props.type === 'sm' ? '120px' : '202px'};
   background-color: #999;
+  object-fit: cover;
   flex: 1;
 `
 
@@ -70,10 +71,12 @@ const Card = ({ type, video }) => {
     fetchVideos();
   }, [video.userId])
 
+  console.log(channel, 'channel');
+
   return (
-    <Link to={`/video/${video.id}`} >
+    <Link to={`/video/${video._id}`} >
       <Container type={type}>
-        <Image type={type} src={video.imageUrl}/>
+        <Image type={type} src={video.imgUrl}/>
         <Details type={type}>
           <ChannelImage type={type} src={channel.img} />
           <Texts>

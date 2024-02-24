@@ -19,7 +19,6 @@ const Home = ({ type }) => {
       console.log(type, 'typetype');
       try {
         const res = await axios.get(`/api/videos/${type}`);
-        console.log(222222222);
         console.log(res.data, 'resres');
         setVideos(res.data);
       }catch(err) {
@@ -29,6 +28,8 @@ const Home = ({ type }) => {
     }
     fetchVideos();
   }, [type])
+
+  console.log(videos, 'videos');
 
   return (
     <Container>
