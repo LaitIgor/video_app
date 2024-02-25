@@ -36,6 +36,7 @@ const Input = styled.input`
 `
 
 const Comments = ({ videoId }) => {
+    console.count('Comments');
     const { currentUser } = useSelector(state => state.user)
     const [comments, setComments] = useState([]);
 

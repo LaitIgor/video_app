@@ -9,6 +9,7 @@ const Container = styled.div`
 `
 
 const Recommendation = ({ tags }) => {
+  console.count('Recommendation');
   const [videos, setVideos] = useState([])
 
   useEffect(() => {

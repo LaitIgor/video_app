@@ -10,6 +10,8 @@ const Container = styled.div`
 `
 
 const Home = ({ type }) => {
+  console.count('Home');
+
   const [videos, setVideos] = useState([])
   const [error, setError] = useState(false)
   console.log(1111);

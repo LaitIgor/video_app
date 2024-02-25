@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SearchIcon from '@mui/icons-material/Search';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import VideocamIcon from '@mui/icons-material/Videocam';
 import Upload from './Upload';
@@ -77,16 +77,23 @@ const Avatar = styled.img`
 `
 
 const Navbar = () => {
+    console.count('Navbar');
     const { currentUser } = useSelector(state => state.user)
     const [open, setOpen] = useState(false);
+    const [q, setQ] = useState('');
+
+    const navigate = useNavigate();
 
   return (
     <>
         <Container>
             <Wrapper>
                 <Search>
-                    <Input placeholder='Search' />
-                    <SearchIcon/>
+                    <Input 
+                        placeholder='Search' 
+                        onChange={(e) => setQ(e.target.value)} 
+                    />
+                    <SearchIcon onClick={() => navigate(`/search?q=${q}`)}/>
                 </Search>
                 { currentUser ? (
                     <User>

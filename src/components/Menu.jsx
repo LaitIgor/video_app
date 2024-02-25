@@ -87,6 +87,7 @@ const Title = styled.h2`
 `
 
 const Menu = ({darkMode, setDarkMode}) => {
+    console.count('Menu');
     const { currentUser } = useSelector(state => state.user)
 
   return (

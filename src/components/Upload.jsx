@@ -73,6 +73,7 @@ const Label = styled.label`
 `
 
 const Upload = ({ setOpen }) => {
+  console.count('Upload');
   const [img, setImg] = useState(null);
   const [video, setVideo] = useState(null);
   const [imgPercentage, setImgPercentage] = useState(0);

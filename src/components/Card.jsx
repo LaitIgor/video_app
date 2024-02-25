@@ -62,8 +62,11 @@ const Info = styled.div`
 const Card = ({ type, video }) => {
   const [channel, setChannel] = useState({})
 
+  console.count('Card');
+
   useEffect(() => {
     const fetchVideos = async () => {
+      console.warn('FETCHING VIDEO IN CARD');
       const res = await axios.get(`/api/users/find/${video.userId}`);
       console.log(res.data, 'resres');
       setChannel(res.data);

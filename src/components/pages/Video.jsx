@@ -126,6 +126,7 @@ const VideoFrame = styled.video`
 `
 
 const Video = () => {
+  console.count('Video');
   const { currentUser } = useSelector(state => state.user);
   const { currentVideo } = useSelector(state => state.video);
 
@@ -138,6 +139,7 @@ const Video = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        console.warn(path, '<------------------------path');
         const videoRes = await axios.get(`/api/videos/find/${path}`);
         const channelRes = await axios.get(`/api/users/find/${videoRes.data.userId}`);
 
