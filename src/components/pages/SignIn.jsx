@@ -91,7 +91,6 @@ const SignIn = () => {
         dispatch(loginStart(true))
         signInWithPopup(auth, provider)
             .then(result => {
-                console.log(result, 'result');
                return axios.post("/api/auth/google", {
                         name: result.user.displayName,
                         email: result.user.email,
@@ -100,7 +99,6 @@ const SignIn = () => {
                 
             })
             .then(res => {
-                console.log(res, 2222);
                 dispatch(loginSuccess(res.data))
             })
             .catch(error => {

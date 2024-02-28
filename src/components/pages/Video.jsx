@@ -1,5 +1,4 @@
 import styled from "styled-components"
-import Card from "../Card"
 import Comments from '../Comments';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
@@ -7,7 +6,6 @@ import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import ReplyIcon from '@mui/icons-material/Reply';
 import AddTaskIcon from '@mui/icons-material/AddTask';
-import Avatar from '../../img/avatar.jpg'
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -126,7 +124,7 @@ const VideoFrame = styled.video`
 `
 
 const Video = () => {
-  console.count('Video');
+  console.warn('------------------------------Video!!!');
   const { currentUser } = useSelector(state => state.user);
   const { currentVideo } = useSelector(state => state.video);
 
@@ -144,7 +142,6 @@ const Video = () => {
         const channelRes = await axios.get(`/api/users/find/${videoRes.data.userId}`);
 
         setChannel(channelRes.data);
-        console.log(videoRes.data, 'videoRes.datavideoRes.data');
         dispatch(fetchSuccess(videoRes.data))
       } catch(err) {
         console.warn(err, 'err');

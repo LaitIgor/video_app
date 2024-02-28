@@ -1,6 +1,5 @@
 import styled from "styled-components"
 import Comment from './Comment';
-import AvatarImg from '../img/avatar.jpg'
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
@@ -36,7 +35,6 @@ const Input = styled.input`
 `
 
 const Comments = ({ videoId }) => {
-    console.count('Comments');
     const { currentUser } = useSelector(state => state.user)
     const [comments, setComments] = useState([]);
 

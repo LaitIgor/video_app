@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { format } from 'timeago.js';
@@ -62,19 +62,14 @@ const Info = styled.div`
 const Card = ({ type, video }) => {
   const [channel, setChannel] = useState({})
 
-  console.count('Card');
-
   useEffect(() => {
     const fetchVideos = async () => {
       console.warn('FETCHING VIDEO IN CARD');
       const res = await axios.get(`/api/users/find/${video.userId}`);
-      console.log(res.data, 'resres');
       setChannel(res.data);
     }
     fetchVideos();
   }, [video.userId])
-
-  console.log(channel, 'channel');
 
   return (
     <Link to={`/video/${video._id}`} >
@@ -94,3 +89,4 @@ const Card = ({ type, video }) => {
 }
 
 export default Card
+// export default memo(Card)

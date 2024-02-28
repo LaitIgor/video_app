@@ -10,18 +10,13 @@ const Container = styled.div`
 `
 
 const Home = ({ type }) => {
-  console.count('Home');
-
   const [videos, setVideos] = useState([])
   const [error, setError] = useState(false)
-  console.log(1111);
 
   useEffect(() => {
     const fetchVideos = async () => {
-      console.log(type, 'typetype');
       try {
         const res = await axios.get(`/api/videos/${type}`);
-        console.log(res.data, 'resres');
         setVideos(res.data);
       }catch(err) {
         setError(true)
@@ -30,8 +25,6 @@ const Home = ({ type }) => {
     }
     fetchVideos();
   }, [type])
-
-  console.log(videos, 'videos');
 
   return (
     <Container>

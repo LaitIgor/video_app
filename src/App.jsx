@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import Menu from './components/Menu';
@@ -39,9 +39,9 @@ function App() {
                   <Route path="subscriptions" element={<Home type='sub'/>}/>
                   <Route path="search" element={<Search/>}/>
                   <Route path='signing' element={<SignIn/>}/>
-                  <Route path="video">
-                    <Route path=":id" element={<Video />}/>
-                  </Route>
+                   <Route path="video">
+                     <Route path=":id" element={<Video />}/>
+                   </Route> 
                 </Route>
               </Routes>
             </Wrapper>
